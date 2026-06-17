@@ -161,6 +161,84 @@ def regula_falsi_method(func, a, b, tol=1e-5, max_iter=100):
   ### TUGAS PRAKTIKUM #4 (PPT 6)
   <img width="821" height="622" alt="image" src="https://github.com/user-attachments/assets/b2cb24d5-6a94-404a-bb6f-7e79a993c58c" />
 
+  - Kode Program
+  ```
+  import sympy as sp
+
+def rk2(fungsi_str, x0, y0, h, xn, metode):
+    x, y = sp.symbols('x y')
+
+    try:
+        fungsi = sp.sympify(fungsi_str)
+        f = sp.lambdify((x, y), fungsi, 'math')
+    except Exception as e:
+        print(f"Error fungsi: {e}")
+        return
+
+    langkah = int((xn - x0) / h)
+
+    print("\n" + "="*70)
+    print("          METODE RUNGE-KUTTA ORDE 2")
+    print("="*70)
+    print(f"{'Iterasi':<10}{'x':<15}{'y':<20}")
+    print("-"*70)
+
+    print(f"{0:<10}{x0:<15.6f}{y0:<20.6f}")
+
+    for i in range(1, langkah + 1):
+
+        if metode == 1:  # Heun
+            k1 = f(x0, y0)
+            k2 = f(x0 + h, y0 + h * k1)
+            y1 = y0 + (h/2) * (k1 + k2)
+
+        elif metode == 2:  # Midpoint
+            k1 = f(x0, y0)
+            k2 = f(x0 + h/2, y0 + (h/2) * k1)
+            y1 = y0 + h * k2
+
+        elif metode == 3:  # Ralston
+            k1 = f(x0, y0)
+            k2 = f(x0 + 3*h/4, y0 + 3*h*k1/4)
+            y1 = y0 + h * ((1/3)*k1 + (2/3)*k2)
+
+        else:
+            print("Metode tidak valid!")
+            return
+
+        x0 = x0 + h
+        y0 = y1
+
+        print(f"{i:<10}{x0:<15.6f}{y0:<20.6f}")
+
+    print("="*70)
+    print(f"Nilai aproksimasi pada x = {x0:.4f} adalah y = {y0:.6f}")
+
+
+if __name__ == "__main__":
+
+    print("="*70)
+    print("      PROGRAM RUNGE-KUTTA ORDE 2")
+    print("="*70)
+
+    fungsi = input("Masukkan fungsi y' = f(x,y) : ")
+
+    x0 = float(input("Masukkan x0 : "))
+    y0 = float(input("Masukkan y0 : "))
+    h = float(input("Masukkan h  : "))
+    xn = float(input("Masukkan xn : "))
+
+    print("\nPilih Metode:")
+    print("1. Heun")
+    print("2. Midpoint")
+    print("3. Ralston")
+
+    metode = int(input("Pilihan : "))
+
+    rk2(fungsi, x0, y0, h, xn, metode)
+    ```
+    
+
 
         
   
