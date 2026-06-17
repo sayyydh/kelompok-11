@@ -165,7 +165,7 @@ def regula_falsi_method(func, a, b, tol=1e-5, max_iter=100):
   ```
   import sympy as sp
 
-def rk2(fungsi_str, x0, y0, h, xn, metode):
+    def rk2(fungsi_str, x0, y0, h, xn, metode):
     x, y = sp.symbols('x y')
 
     try:
@@ -215,7 +215,7 @@ def rk2(fungsi_str, x0, y0, h, xn, metode):
     print(f"Nilai aproksimasi pada x = {x0:.4f} adalah y = {y0:.6f}")
 
 
-if __name__ == "__main__":
+    if __name__ == "__main__":
 
     print("="*70)
     print("      PROGRAM RUNGE-KUTTA ORDE 2")
@@ -236,9 +236,18 @@ if __name__ == "__main__":
     metode = int(input("Pilihan : "))
 
     rk2(fungsi, x0, y0, h, xn, metode)
+  ```
+
+  - Input
+  ```
+  Masukkan fungsi y' = f(x,y) : x+y
+    Masukkan x0 : 0
+    Masukkan y0 : 1
+    Masukkan h  : 0.1
+    Masukkan xn : 0.5
+
+    Pilihan : 1
     ```
-    
 
-
-        
-  
+  - Output
+  <img width="606" height="350" alt="image" src="https://github.com/user-attachments/assets/ce3b537d-9884-414b-a0aa-de127f83fe8f" />
