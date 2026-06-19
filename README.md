@@ -311,9 +311,11 @@ def regula_falsi_method(func, a, b, tol=1e-5, max_iter=100):
 
 
 - Input
+  
   <img width="570" height="212" alt="image" src="https://github.com/user-attachments/assets/9c30e0af-25a9-4135-a0f7-427b10628e91" />
 
   - Output
+    
     <img width="727" height="672" alt="image" src="https://github.com/user-attachments/assets/7ccf02b9-c226-4e34-88d6-4d8e50c94de5" />
 
 
