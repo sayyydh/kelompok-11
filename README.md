@@ -173,7 +173,7 @@ def regula_falsi_method(func, a, b, tol=1e-5, max_iter=100):
   ```
   # ================================
   # Fungsi evaluasi
-    # ================================
+  # ================================
     def f(x, expr):
     fungsi = {
         "x": x,
