@@ -159,98 +159,155 @@ def regula_falsi_method(func, a, b, tol=1e-5, max_iter=100):
 
 
   ### TUGAS PRAKTIKUM #3 (PPT 6)
-<img width="837" height="465" alt="image" src="https://github.com/user-attachments/assets/18a327e8-7d54-4bde-af73-565540e2fdcf" />
+<img width="837" height="465" alt="image" src="https://github.com/user-attachments/assets/d51dda11-64a3-4db9-845c-02fe4a972573" />
 
-  - Kode Program
+- Kode Program
   ```
-  import sympy as sp
-
-    def rk2(fungsi_str, x0, y0, h, xn, metode):
-    x, y = sp.symbols('x y')
-
-    try:
-        fungsi = sp.sympify(fungsi_str)
-        f = sp.lambdify((x, y), fungsi, 'math')
-    except Exception as e:
-        print(f"Error fungsi: {e}")
-        return
-
-    langkah = int((xn - x0) / h)
-
-    print("\n" + "="*70)
-    print("          METODE RUNGE-KUTTA ORDE 2")
-    print("="*70)
-    print(f"{'Iterasi':<10}{'x':<15}{'y':<20}")
-    print("-"*70)
-
-    print(f"{0:<10}{x0:<15.6f}{y0:<20.6f}")
-
-    for i in range(1, langkah + 1):
-
-        if metode == 1:  # Heun
-            k1 = f(x0, y0)
-            k2 = f(x0 + h, y0 + h * k1)
-            y1 = y0 + (h/2) * (k1 + k2)
-
-        elif metode == 2:  # Midpoint
-            k1 = f(x0, y0)
-            k2 = f(x0 + h/2, y0 + (h/2) * k1)
-            y1 = y0 + h * k2
-
-        elif metode == 3:  # Ralston
-            k1 = f(x0, y0)
-            k2 = f(x0 + 3*h/4, y0 + 3*h*k1/4)
-            y1 = y0 + h * ((1/3)*k1 + (2/3)*k2)
-
-        else:
-            print("Metode tidak valid!")
-            return
-
-        x0 = x0 + h
-        y0 = y1
-
-        print(f"{i:<10}{x0:<15.6f}{y0:<20.6f}")
-
-    print("="*70)
-    print(f"Nilai aproksimasi pada x = {x0:.4f} adalah y = {y0:.6f}")
-
-
-    if __name__ == "__main__":
-
-    print("="*70)
-    print("      PROGRAM RUNGE-KUTTA ORDE 2")
-    print("="*70)
-
-    fungsi = input("Masukkan fungsi y' = f(x,y) : ")
-
-    x0 = float(input("Masukkan x0 : "))
-    y0 = float(input("Masukkan y0 : "))
-    h = float(input("Masukkan h  : "))
-    xn = float(input("Masukkan xn : "))
-
-    print("\nPilih Metode:")
-    print("1. Heun")
-    print("2. Midpoint")
-    print("3. Ralston")
-
-    metode = int(input("Pilihan : "))
-
-    rk2(fungsi, x0, y0, h, xn, metode)
+  import math
+    import ipywidgets as widgets
+    from IPython.display import display, clear_output
+    import matplotlib.pyplot as plt
+    import numpy as np
   ```
 
-  - Input
   ```
-  Masukkan fungsi y' = f(x,y) : x+y
-    Masukkan x0 : 0
-    Masukkan y0 : 1
-    Masukkan h  : 0.1
-    Masukkan xn : 0.5
+  # ================================
+  # Fungsi evaluasi
+    # ================================
+    def f(x, expr):
+    fungsi = {
+        "x": x,
+        "sin": math.sin,
+        "cos": math.cos,
+        "tan": math.tan,
+        "sqrt": math.sqrt,
+        "log": math.log,
+        "exp": math.exp,
+        "pi": math.pi,
+        "e": math.e
+    }
+    return eval(expr, {"__builtins__": None}, fungsi)
 
-    Pilihan : 1
-    ```
+    # ================================
+    # Metode Trapesium
+    # ================================
+    def trapezoid(expr, a, b, n):
+    h = (b - a) / n
+    total = f(a, expr) + f(b, expr)
 
-  - Output
-  <img width="606" height="350" alt="image" src="https://github.com/user-attachments/assets/ce3b537d-9884-414b-a0aa-de127f83fe8f" />
+    for i in range(1, n):
+        total += 2 * f(a + i*h, expr)
 
-  <img width="331" height="257" alt="image" src="https://github.com/user-attachments/assets/516214be-941d-4de1-9ed5-499a0cec82eb" />
+    return total * h / 2
 
+    # ================================
+    # Metode Romberg
+    # ================================
+    def romberg(expr, a, b, level):
+    R = [[0]*level for _ in range(level)]
+
+    for i in range(level):
+        n = 2**i
+        R[i][0] = trapezoid(expr, a, b, n)
+
+    for i in range(1, level):
+        for j in range(1, i+1):
+            R[i][j] = R[i][j-1] + \
+                (R[i][j-1]-R[i-1][j-1])/(4**j-1)
+
+    return R
+
+    # ================================
+    # Grafik
+    # ================================
+    def tampilkan_grafik(expr, a, b):
+
+    x = np.linspace(a, b, 400)
+    y = [f(i, expr) for i in x]
+
+    plt.figure(figsize=(6,4))
+    plt.plot(x, y, label='f(x)')
+    plt.axhline(0,color='black')
+    plt.grid(True)
+    plt.legend()
+    plt.title("Grafik Fungsi")
+    plt.show()
+
+    # ================================
+    # Widget
+    # ================================
+    fungsi = widgets.Text(
+    value='sin(x)',
+    description='f(x):'
+    )
+
+    bawah = widgets.FloatText(
+    value=0,
+    description='a:'
+    )
+
+    atas = widgets.FloatText(
+    value=3.1415926535,
+    description='b:'
+    )
+
+    level = widgets.IntText(
+    value=5,
+    description='Level:'
+    )
+
+    tombol = widgets.Button(
+    description="Hitung",
+    button_style="success"
+    )
+
+    output = widgets.Output()
+
+    # ================================
+    # Tombol Hitung
+    # ================================
+    def klik(b):
+
+    with output:
+        clear_output()
+
+        try:
+
+            hasil = romberg(
+                fungsi.value,
+                bawah.value,
+                atas.value,
+                level.value
+            )
+
+            print("========== TABEL ROMBERG ==========\n")
+
+            for i in range(level.value):
+                for j in range(i+1):
+                    print(f"{hasil[i][j]:12.8f}", end=" ")
+                print()
+
+            print("\n===================================")
+            print("Hasil Integral =", hasil[level.value-1][level.value-1])
+
+            tampilkan_grafik(
+                fungsi.value,
+                bawah.value,
+                atas.value
+            )
+
+        except Exception as e:
+            print("Error :", e)
+
+    tombol.on_click(klik)
+
+    display(fungsi)
+    display(bawah)
+    display(atas)
+    display(level)
+    display(tombol)
+    display(output)
+  ```
+  
+
+ 
