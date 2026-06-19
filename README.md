@@ -159,7 +159,7 @@ def regula_falsi_method(func, a, b, tol=1e-5, max_iter=100):
 
 
   ### TUGAS PRAKTIKUM #3 (PPT 6)
-  <img width="821" height="622" alt="image" src="https://github.com/user-attachments/assets/b2cb24d5-6a94-404a-bb6f-7e79a993c58c" />
+<img width="837" height="465" alt="image" src="https://github.com/user-attachments/assets/18a327e8-7d54-4bde-af73-565540e2fdcf" />
 
   - Kode Program
   ```
