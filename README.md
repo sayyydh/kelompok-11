@@ -162,18 +162,18 @@ def regula_falsi_method(func, a, b, tol=1e-5, max_iter=100):
 <img width="837" height="465" alt="image" src="https://github.com/user-attachments/assets/d51dda11-64a3-4db9-845c-02fe4a972573" />
 
 - Kode Program
-  ```
+```
 import math
-import ipywidgets as widgets
-from IPython.display import display, clear_output
-import matplotlib.pyplot as plt
-import numpy as np
-  ```
+    import ipywidgets as widgets
+    from IPython.display import display, clear_output
+    import matplotlib.pyplot as plt
+    import numpy as np
+```
 
 
 
-  ```
-  # ================================
+```
+# ================================
 # Fungsi evaluasi
 # ================================
 def f(x, expr):
@@ -313,12 +313,10 @@ display(output)
 
 
 - Input
-  
-  <img width="570" height="212" alt="image" src="https://github.com/user-attachments/assets/9c30e0af-25a9-4135-a0f7-427b10628e91" />
+<img width="570" height="212" alt="image" src="https://github.com/user-attachments/assets/9c30e0af-25a9-4135-a0f7-427b10628e91" />
 
   - Output
-    
-    <img width="727" height="672" alt="image" src="https://github.com/user-attachments/assets/7ccf02b9-c226-4e34-88d6-4d8e50c94de5" />
+ <img width="727" height="672" alt="image" src="https://github.com/user-attachments/assets/7ccf02b9-c226-4e34-88d6-4d8e50c94de5" />
 
 
   
