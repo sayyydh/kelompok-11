@@ -170,6 +170,8 @@ import matplotlib.pyplot as plt
 import numpy as np
   ```
 
+
+
   ```
   # ================================
 # Fungsi evaluasi
@@ -307,7 +309,7 @@ display(atas)
 display(level)
 display(tombol)
 display(output)
-  ```
+```
 
 
 - Input
