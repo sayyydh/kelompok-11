@@ -163,18 +163,18 @@ def regula_falsi_method(func, a, b, tol=1e-5, max_iter=100):
 
 - Kode Program
   ```
-  import math
-    import ipywidgets as widgets
-    from IPython.display import display, clear_output
-    import matplotlib.pyplot as plt
-    import numpy as np
+import math
+import ipywidgets as widgets
+from IPython.display import display, clear_output
+import matplotlib.pyplot as plt
+import numpy as np
   ```
 
   ```
   # ================================
-  # Fungsi evaluasi
-  # ================================
-    def f(x, expr):
+# Fungsi evaluasi
+# ================================
+def f(x, expr):
     fungsi = {
         "x": x,
         "sin": math.sin,
@@ -188,10 +188,10 @@ def regula_falsi_method(func, a, b, tol=1e-5, max_iter=100):
     }
     return eval(expr, {"__builtins__": None}, fungsi)
 
-    # ================================
-    # Metode Trapesium
-    # ================================
-    def trapezoid(expr, a, b, n):
+# ================================
+# Metode Trapesium
+# ================================
+def trapezoid(expr, a, b, n):
     h = (b - a) / n
     total = f(a, expr) + f(b, expr)
 
@@ -200,10 +200,10 @@ def regula_falsi_method(func, a, b, tol=1e-5, max_iter=100):
 
     return total * h / 2
 
-    # ================================
-    # Metode Romberg
-    # ================================
-    def romberg(expr, a, b, level):
+# ================================
+# Metode Romberg
+# ================================
+def romberg(expr, a, b, level):
     R = [[0]*level for _ in range(level)]
 
     for i in range(level):
@@ -217,10 +217,10 @@ def regula_falsi_method(func, a, b, tol=1e-5, max_iter=100):
 
     return R
 
-    # ================================
-    # Grafik
-    # ================================
-    def tampilkan_grafik(expr, a, b):
+# ================================
+# Grafik
+# ================================
+def tampilkan_grafik(expr, a, b):
 
     x = np.linspace(a, b, 400)
     y = [f(i, expr) for i in x]
@@ -233,40 +233,40 @@ def regula_falsi_method(func, a, b, tol=1e-5, max_iter=100):
     plt.title("Grafik Fungsi")
     plt.show()
 
-    # ================================
-    # Widget
-    # ================================
-    fungsi = widgets.Text(
+# ================================
+# Widget
+# ================================
+fungsi = widgets.Text(
     value='sin(x)',
     description='f(x):'
-    )
+)
 
-    bawah = widgets.FloatText(
+bawah = widgets.FloatText(
     value=0,
     description='a:'
-    )
+)
 
-    atas = widgets.FloatText(
+atas = widgets.FloatText(
     value=3.1415926535,
     description='b:'
-    )
+)
 
-    level = widgets.IntText(
+level = widgets.IntText(
     value=5,
     description='Level:'
-    )
+)
 
-    tombol = widgets.Button(
+tombol = widgets.Button(
     description="Hitung",
     button_style="success"
-    )
+)
 
-    output = widgets.Output()
+output = widgets.Output()
 
-    # ================================
-    # Tombol Hitung
-    # ================================
-    def klik(b):
+# ================================
+# Tombol Hitung
+# ================================
+def klik(b):
 
     with output:
         clear_output()
@@ -299,14 +299,14 @@ def regula_falsi_method(func, a, b, tol=1e-5, max_iter=100):
         except Exception as e:
             print("Error :", e)
 
-    tombol.on_click(klik)
+tombol.on_click(klik)
 
-    display(fungsi)
-    display(bawah)
-    display(atas)
-    display(level)
-    display(tombol)
-    display(output)
+display(fungsi)
+display(bawah)
+display(atas)
+display(level)
+display(tombol)
+display(output)
   ```
 
 
